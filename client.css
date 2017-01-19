@@ -18,15 +18,15 @@ div.container-img {
   height: 400px;
 }
 div.container-login {
-  align-items: center;
-  border: 2px solid black;
+	text-align: center;
+	border: 2px solid black;
   margin-left: 350px;
   width: 250px;
   height: 100px;
   background-color: #FFFFFF;
 }
 div.container-signup {
-  align-content: center;
+  text-align: center;
   border: 2px solid black;
   margin-left: 350px;
   margin-top: 10px;
@@ -34,8 +34,15 @@ div.container-signup {
   height: 286px;
   background-color: #FFFFFF;
 }
+input{
+	margin-top: 2px;
+}
+select{
+	width: 50%;
+	margin-top: 2px;
+}
 button {
-  margin: 0 auto;
+	margin-top: 2px;
   background-color: grey; /* Green */
   border: 1px;
   color: white;

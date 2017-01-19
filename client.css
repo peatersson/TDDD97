@@ -1,0 +1,47 @@
+body {
+	margin-top: 100px;
+	background-color: rgb(68, 117, 255);
+	color: #A4A4A4;
+	font-family: "Arial", Verdana, Sans-serif;
+}
+
+div.container-layout{
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+div.container-img {
+  float: left;
+  border: 2px solid black;
+  background-image: url('wimage.png');
+  width: 340px;
+  height: 400px;
+}
+div.container-login {
+  align-items: center;
+  border: 2px solid black;
+  margin-left: 350px;
+  width: 250px;
+  height: 100px;
+  background-color: #FFFFFF;
+}
+div.container-signup {
+  align-content: center;
+  border: 2px solid black;
+  margin-left: 350px;
+  margin-top: 10px;
+  width: 250px;
+  height: 286px;
+  background-color: #FFFFFF;
+}
+button {
+  margin: 0 auto;
+  background-color: grey; /* Green */
+  border: 1px;
+  color: white;
+  padding: 2px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}

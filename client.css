@@ -1,23 +1,23 @@
-body {
+body{
 	margin-top: 100px;
 	background-color: rgb(68, 117, 255);
 	color: #A4A4A4;
 	font-family: "Arial", Verdana, Sans-serif;
 }
-
-div.container-layout{
+.container-layout{
   width: 600px;
   height: 400px;
   margin: 0 auto;
 }
-div.container-img {
+.container-img {
   float: left;
   border: 2px solid black;
   background-image: url('wimage.png');
   width: 340px;
   height: 400px;
 }
-div.container-login {
+.container-login {
+	color: black;
 	text-align: center;
 	border: 2px solid black;
   margin-left: 350px;
@@ -25,8 +25,9 @@ div.container-login {
   height: 100px;
   background-color: #FFFFFF;
 }
-div.container-signup {
+.container-signup {
   text-align: center;
+	color: black;
   border: 2px solid black;
   margin-left: 350px;
   margin-top: 10px;
@@ -41,7 +42,6 @@ select{
 }
 label{
 	float: left;
-  margin-right: 1em;
 	margin-top: 4px;
 	font-size: 12px;
 }
@@ -49,5 +49,4 @@ label{
   text-align: right;
   margin-left: 5px;
 	margin-right: 5px;
-	margin-top: 0 auto;
 }

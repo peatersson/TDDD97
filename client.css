@@ -34,21 +34,19 @@ div.container-signup {
   height: 286px;
   background-color: #FFFFFF;
 }
-input{
-	margin-top: 2px;
-}
 select{
+	float: right;
 	width: 50%;
 	margin-top: 2px;
 }
-button {
-	margin-top: 2px;
-  background-color: grey; /* Green */
-  border: 1px;
-  color: white;
-  padding: 2px 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
+label{
+	float: left;
+  margin-right: 1em;
+	font-size: 12px;
+}
+.formArea{
+  text-align: right;
+  margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 0 auto;
 }

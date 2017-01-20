@@ -4,34 +4,64 @@
     <script src="client.js" type="text/javascript"></script>
     <script src="serverstub.js" type="text/javascript"></script>
   </head>
+
+  <!-- Welcome view -->
+  <script id="welcomeView" type="text/view">
   <body>
     <div>
       <div class="container-layout">
         <div class="container-img">
         </div>
         <div class="container-login">
-          <input type="text" placeholder="Email" name="login_email" required>
-          <input type="password" placeholder="Password" name="login_pw" required><br>
-          <button type="submit">Login</button>
+          Login <br>
+          <form action="javascript:login();">
+            <div class="formArea">
+              <label> Email </label>
+              <input type="text" placeholder="Email" id="login_email" required><br>
+              <label> Password </label>
+              <input type="password" placeholder="Password" id="login_pw" required><br>
+              <input type="submit" value="Login">
+            </div>
+          </form>
+
         </div>
         <div class="container-signup">
-          <h3> Sign up here <h3/>
-          <input type="text" placeholder="First Name" name="signup_firstname" required>
-          <input type="text" placeholder="Family Name" name="signup_familyname" required><br>
-          <select>
-          <option value="Gender">Gender</option>
-          <option value="Female">Female</option>
-          <option value="Male">Male</option>
-        </select><br>
-          <input type="text" placeholder="City" name="signup_city" required>
-          <input type="text" placeholder="Country" name="signup_Country" required>
-          <input type="text" placeholder="Email" name="signup_email" required>
-          <input type="text" placeholder="Password" name="signup_password" required>
-          <input type="password" placeholder="Repeat Password" name="signup_password" required><br>
-
-          <button type="button" float="left">Signup</button>
+          Sign up here <br>
+          <form action="signup();">
+            <div class="formArea">
+              <label> First name </label>
+              <input type="text" placeholder="First Name" id="signup_firstname" required><br>
+              <label> Family name </label>
+              <input type="text" placeholder="Family Name" id="signup_familyname" required><br>
+              <label> Gender </label>
+              <select>
+              <option value="Gender">Gender</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              </select><br>
+              <label> City </label>
+              <input type="text" placeholder="City" id="signup_city" required><br>
+              <label> Country </label>
+              <input type="text" placeholder="Country" id="signup_Country" required><br>
+              <label> Email </label>
+              <input type="text" placeholder="Email" id="signup_email" required><br>
+              <label> Password </label>
+              <input type="text" placeholder="Password" id="signup_password" required><br>
+              <label for="signup_repeat_pass"> Repeat Password </label>
+              <input type="password" name="signup_repeat_pass" placeholder="Repeat Password" id="signup_repeat_pass" required><br>
+              <input type="button" value="Signup">
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </body>
+  </script>
+
+  <!-- Profile view -->
+  <script id="profileView" type="text/view">
+  visa profilen
+  </script>
+
+  <body id="body"> </body>
 </html>

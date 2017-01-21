@@ -80,7 +80,20 @@
       <div class="tab" id="accountTab" value="Account">
         <input type="radio" id="account" name="tabGroup">
         <label for="account">Account</label>
-        <div class="content"> account content
+        <div class="content">
+          <form id="changePass" action="javascript:changePassword()">
+            <div class="accountArea">
+              <h1 float="left"> Change Password </h1>
+              <form-label> Old password </form-label>
+              <input type="password" id="oldPass" name="oldPass" required><br>
+              <form-label> New password </form-label>
+              <input type="password" id="newPass" name = "newPass" required><br>
+              <form-label> Repeat new password </form-label>
+              <input type="password" id="repeatNewPass" name = "repeatNewPass" required><br>
+              <input type="submit" value="Change Password">
+            </div>
+          </form>
+          <input type="button" id="signOutButton" onclick="signOut()" value="Sign out">
         </div>
       </div>
     </div>

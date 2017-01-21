@@ -17,9 +17,9 @@
           <form action="javascript:login();">
             <div class="formArea">
               <label> Email </label>
-              <input type="text" placeholder="Email" id="login_email" required><br>
+              <input type="email" placeholder="Email" id="login_email" name="login_email" required><br>
               <label> Password </label>
-              <input type="password" placeholder="Password" id="login_pw" required><br>
+              <input type="password" placeholder="Password" id="login_password" name = "login_password" required><br>
               <input type="submit" value="Login">
             </div>
           </form>
@@ -27,29 +27,29 @@
         </div>
         <div class="container-signup">
           Sign up here <br>
-          <form action="signup();">
+          <form id="signup_form" action="javascript:signup();">
             <div class="formArea">
               <label> First name </label>
-              <input type="text" placeholder="First Name" id="signup_firstname" required><br>
+              <input type="text" placeholder="First Name" id="firstname" required><br>
               <label> Family name </label>
-              <input type="text" placeholder="Family Name" id="signup_familyname" required><br>
+              <input type="text" placeholder="Family Name" id="familyname" required><br>
               <label> Gender </label>
-              <select>
-              <option value="Gender">Gender</option>
-              <option value="Female">Female</option>
+              <select id="gender">
               <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
               </select><br>
               <label> City </label>
-              <input type="text" placeholder="City" id="signup_city" required><br>
+              <input type="text" placeholder="City" id="city" required><br>
               <label> Country </label>
-              <input type="text" placeholder="Country" id="signup_Country" required><br>
+              <input type="text" placeholder="Country" id="country" required><br>
               <label> Email </label>
-              <input type="text" placeholder="Email" id="signup_email" required><br>
+              <input type="email" placeholder="Email" id="email" required><br>
               <label> Password </label>
-              <input type="text" placeholder="Password" id="signup_password" required><br>
+              <input type="password" placeholder="Password" id="password" required><br>
               <label> Repeat psw </label>
-              <input type="password" name="signup_repeat_pass" placeholder="Password" id="signup_repeat_pass" required><br>
-              <input type="button" value="Signup">
+              <input type="password" name="repeat_pass" placeholder="Password" id="repeat_password" required><br>
+              <input type="submit" value="Signup">
             </div>
           </form>
         </div>

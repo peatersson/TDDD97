@@ -40,7 +40,7 @@ select{
 	width: 50%;
 	margin-top: 2px;
 }
-label{
+form-label{
 	float: left;
 	margin-top: 4px;
 	font-size: 12px;
@@ -49,4 +49,37 @@ label{
   text-align: right;
   margin-left: 5px;
 	margin-right: 5px;
+}
+.errorMessage{
+	color: red;
+}
+.tabs{
+	position: relative;
+}
+.tab{
+	color: solid black;
+	float: left;
+}
+.tab [type=radio]{
+	display: none;
+}
+.tab label{
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #000;
+	position: relative;
+}
+.content{
+	border: 1px solid black;
+	background-color: white;
+	height: 400px;
+	position: absolute;
+	float: left;
+	margin-top: 40px;
+	left: 0;
+	right: 0;
+	top: 20%;
+}
+[type=radio]:checked ~ .content{
+	z-index: 1;
 }

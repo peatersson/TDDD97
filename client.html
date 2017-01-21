@@ -14,13 +14,15 @@
         </div>
         <div class="container-login">
           Login <br>
-          <form action="javascript:login();">
+          <form action="javascript:signIn();">
             <div class="formArea">
-              <label> Email </label>
-              <input type="email" placeholder="Email" id="login_email" name="login_email" required><br>
-              <label> Password </label>
-              <input type="password" placeholder="Password" id="login_password" name = "login_password" required><br>
-              <input type="submit" value="Login">
+              <form-label> Email </form-label>
+              <input type="email" id="login_email" name="login_email" required><br>
+              <form-label> Password </form-label>
+              <input type="password" id="login_password" name = "login_password" required><br>
+              <input type="submit" value="Sign in">
+            </div>
+            <div class="errorMessage" id="signInError">
             </div>
           </form>
 
@@ -29,29 +31,31 @@
           Sign up here <br>
           <form id="signup_form" action="javascript:signup();">
             <div class="formArea">
-              <label> First name </label>
-              <input type="text" placeholder="First Name" id="firstname" required><br>
-              <label> Family name </label>
-              <input type="text" placeholder="Family Name" id="familyname" required><br>
-              <label> Gender </label>
+              <form-label> First name </form-label>
+              <input type="text" id="firstname" required><br>
+              <form-label> Family name </form-label>
+              <input type="text" id="familyname" required><br>
+              <form-label> Gender </form-label>
               <select id="gender">
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
               </select><br>
-              <label> City </label>
-              <input type="text" placeholder="City" id="city" required><br>
-              <label> Country </label>
-              <input type="text" placeholder="Country" id="country" required><br>
-              <label> Email </label>
-              <input type="email" placeholder="Email" id="email" required><br>
-              <label> Password </label>
-              <input type="password" placeholder="Password" id="password" required><br>
-              <label> Repeat psw </label>
-              <input type="password" name="repeat_pass" placeholder="Password" id="repeat_password" required><br>
-              <input type="submit" value="Signup">
+              <form-label> City </form-label>
+              <input type="text" id="city" required><br>
+              <form-label> Country </form-label>
+              <input type="text" id="country" required><br>
+              <form-label> Email </form-label>
+              <input type="email" id="email" required><br>
+              <form-label> Password </form-label>
+              <input type="password" id="password" required><br>
+              <form-label> Repeat psw </form-label>
+              <input type="password" name="repeat_pass" id="repeat_password" required><br>
+              <input type="submit" value="Sign up">
             </div>
           </form>
+          <div class="errorMessage" id="signUpError">
+          </div>
         </div>
       </div>
     </div>
@@ -60,7 +64,26 @@
 
   <!-- Profile view -->
   <script id="profileView" type="text/view">
-  visa profilen
+    <div class="tabs">
+      <div class="tab">
+        <input type="radio" id="home" name="tabGroup" checked>
+        <label for="home">Home</label>
+        <div class="content"> home content
+        </div>
+      </div>
+      <div class="tab" id="browseTab" value="Browse">
+        <input type="radio" id="browse" name="tabGroup">
+        <label for="browse">Browse</label>
+        <div class="content"> browse content
+        </div>
+      </div>
+      <div class="tab" id="accountTab" value="Account">
+        <input type="radio" id="account" name="tabGroup">
+        <label for="account">Account</label>
+        <div class="content"> account content
+        </div>
+      </div>
+    </div>
   </script>
 
   <body id="body"> </body>

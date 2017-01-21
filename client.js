@@ -5,21 +5,28 @@ setBody = function(view){
 window.onload = function(){
   welcomeView = document.getElementById("welcomeView");
   profileView = document.getElementById("profileView");
-
   setBody(welcomeView);
 };
 
 var MINIMAL_PASSWORD_LENGTH = 6; //no magical numbers
 
-function login(){
-  email = document.getElementById("login_email");
-  password = document.getElementById("login_password");
+function signIn(){
+  email = document.getElementById("login_email").value;
+  password = document.getElementById("login_password").value;
+  var errorArea = document.getElementById("signInError");
 
-  serverstub.signIn(email, password);
+  var returnCode = serverstub.signIn(email, password);
+
+  if(returnCode.success){
+    userEmail = email;
+    userToken = returnCode.data;
+    setBody(profileView);
+  }
 }
 
 function signup(){
   inputForm = document.getElementById("signup_form");
+  var errorArea = document.getElementById("signUpError");
 
   if(validateSignUp(inputForm)){
     var newUser = {
@@ -32,14 +39,18 @@ function signup(){
       "country": inputForm.country.value
     }
     var returnCode = serverstub.signUp(newUser);
-    alert(returnCode.message);
+    errorArea.innerHTML  = returnCode.message;
   }
 }
 
 function validateSignUp(inputForm){
-  if(inputForm.password.value === inputForm.repeat_password.value &&
-    inputForm.password.value.length >= MINIMAL_PASSWORD_LENGTH){
-      return true;
+  if(inputForm.password.value !== inputForm.repeat_password.value){
+      errorArea.innerHTML = "Passwords don't match!"
+      return false;
   }
-  return false;
+  if(inputForm.password.value.length < MINIMAL_PASSWORD_LENGTH){
+      errorArea.innerHTML = "Passwords too short"
+      return false;
+  }
+  return true;
 }

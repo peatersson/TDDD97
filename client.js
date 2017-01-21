@@ -22,13 +22,14 @@ function signIn(){
     userToken = returnCode.data;
     setBody(profileView);
   }
+  errorArea.innerHTML = returnCode.message;
 }
 
 function signup(){
   inputForm = document.getElementById("signup_form");
   var errorArea = document.getElementById("signUpError");
 
-  if(validateSignUp(inputForm)){
+  if(validatePassword(inputForm.password.value, inputForm.repeat_password.value, errorArea)){
     var newUser = {
       "email": inputForm.email.value,
       "password": inputForm.password.value,
@@ -43,14 +44,33 @@ function signup(){
   }
 }
 
-function validateSignUp(inputForm){
-  if(inputForm.password.value !== inputForm.repeat_password.value){
-      errorArea.innerHTML = "Passwords don't match!"
+function validatePassword(password, repeatedPassword, error){
+  if(password !== repeatedPassword){
+      error.innerHTML = "Passwords don't match!"
       return false;
   }
-  if(inputForm.password.value.length < MINIMAL_PASSWORD_LENGTH){
-      errorArea.innerHTML = "Passwords too short"
+  if(password< MINIMAL_PASSWORD_LENGTH){
+      error.innerHTML = "Passwords too short"
       return false;
   }
   return true;
+}
+
+function changePassword(){
+  var oldPass = document.getElementById("oldPass").value;
+  var newPass = document.getElementById("newPass").value;
+  var repeatNewPass = document.getElementById("repeatNewPass").value;
+  var errorArea = document.getElementById("changePassError");
+
+  if(validatePassword(newPass, repeatNewPass, errorArea)){
+    var returnCode = serverstub.changePassword(userToken, oldPass, newPass);
+  }
+  errorArea.innerHTML = returnCode.message;
+}
+
+function signOut(){
+  var returnCode = serverstub.signOut(userToken);
+  if(returnCode.success){
+    setBody(welcomeView);
+  }
 }

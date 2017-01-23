@@ -21,10 +21,15 @@ function signIn(){
     userEmail = email;
     userToken = returnCode.data;
     setBody(profileView);
-    loadHomeInfo();
-    //loadBrowse();
+    loadProfileView();
   }
   errorArea.innerHTML = returnCode.message;
+}
+
+function loadProfileView(){
+  loadInfo();
+  //loadHomeMessages();
+  //loadBrowseInfo();
 }
 
 function signup(){
@@ -77,7 +82,7 @@ function signOut(){
   }
 }
 
-function loadHomeInfo(){
+function loadInfo(){
     var returnCode = serverstub.getUserDataByToken(userToken);
     var user = returnCode.data;
 
@@ -89,3 +94,26 @@ function loadHomeInfo(){
       document.getElementById("emailLabel").innerHTML = "Email: " + user.email;
     }
   }
+}
+/*
+function appendMessage(item, index){
+  var postedMessages = document.getElementById("messageWall");
+  postedMessages.innerHTML += item;
+}
+function loadHomeMessages(){
+  var returnCode = serverstub.getUserMessagesByToken(userToken);
+
+  if(returnCode.success){
+    var messages = returnCode.data;
+    messages.forEach(appendMessage);
+  }
+}
+
+function postMessage(toEmail){
+  if(toEmail == null){
+    var returnCode = serverstub.postMessage(userToken, document.getElementById("postBox").innerHTML, userEmail);
+    if(returnCode.success){
+      alert("jawodnawnjd");
+    }
+  }
+}*/

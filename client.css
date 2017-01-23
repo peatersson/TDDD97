@@ -103,13 +103,32 @@ form-label{
 	font-size: 30px;
 }
 .homeArea{
-	vertical-align: middle;
 }
 home-label{
 	font-size: 16px;
 	color: black;
 }
 .messages{
+	margin-left: 30%;
+	float: left;
 }
 .accountInfo{
+	float: left;
+}
+.postBox{
+	width: 300px;
+	height: 100px;
+}
+.refresh-button{
+	float: right;
+	margin-left: 40px;
+	margin-top: 0px;
+	width: 48px;
+	height: 48px;
+	background-image: url('ic_refresh_white_24dp_2x.png');
+	background-color: grey;
+	border: 1px;
+}
+.refresh-button:active{
+	background-color: black;
 }

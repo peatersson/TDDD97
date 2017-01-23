@@ -7,7 +7,6 @@
 
   <!-- Welcome view -->
   <script id="welcomeView" type="text/view">
-
     <div>
       <div class="container-layout">
         <div class="container-img">
@@ -59,7 +58,6 @@
         </div>
       </div>
     </div>
-  
   </script>
 
   <!-- Profile view -->
@@ -70,7 +68,7 @@
         <label for="home">Home</label>
         <div class="content">
           <div class="homeArea">
-            <div class="accontInfo">
+            <div class="accountInfo">
               <h3> User info </h3>
               <home-label id="nameLabel">Name: </home-label><br>
               <home-label id="genderLabel">Gender: </home-label><br>
@@ -78,13 +76,16 @@
               <home-label id="countryLabel">Country: </home-label><br>
               <home-label id="emailLabel">Email:</home-label><br>
 
-              <h3> Post message </h3>
+              <h3> Post a message to your wall </h3>
+              <form-message id="postMessage" action="javascript:postMessage()">
+                <form-label> Tell the world what you are thinking about! </form-label><br>
+                <textarea class="postBox" type="text" id="message" required></textarea><br>
+                <input type=submit value="Post Message">
+              </form-message>
             </div>
             <div class="messages">
-              <h3> Posted messages </h3>
-              ljahwoidjnwandöoj
-              aowjndoåknaw
-              paownonaw
+              <h3> Posted messages <button class="refresh-button" id="refreshMessages"
+              onclick=""></button> </h3>
             </div>
           </div>
         </div>

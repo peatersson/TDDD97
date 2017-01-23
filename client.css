@@ -69,6 +69,7 @@ form-label{
   padding: 10px;
   border: 1px solid #000;
 	position: relative;
+	border-radius: 10px;
 }
 .content{
 	border: 1px solid black;
@@ -80,6 +81,7 @@ form-label{
 	right: 0;
 	top: 20px;
 	bottom: 0;
+	border-radius: 5px;
 }
 [type=radio]:checked ~ .content{
 	z-index: 1;
@@ -99,4 +101,15 @@ form-label{
 	width: 15%;
 	height: 15%;
 	font-size: 30px;
+}
+.homeArea{
+	vertical-align: middle;
+}
+home-label{
+	font-size: 16px;
+	color: black;
+}
+.messages{
+}
+.accountInfo{
 }

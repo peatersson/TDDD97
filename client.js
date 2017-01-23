@@ -21,6 +21,8 @@ function signIn(){
     userEmail = email;
     userToken = returnCode.data;
     setBody(profileView);
+    loadHomeInfo();
+    //loadBrowse();
   }
   errorArea.innerHTML = returnCode.message;
 }
@@ -50,7 +52,7 @@ function validatePassword(password, repeatedPassword, error){
       return false;
   }
   if(password< MINIMAL_PASSWORD_LENGTH){
-      error.innerHTML = "Passwords too short"
+      error.innerHTML = "Password too short"
       return false;
   }
   return true;
@@ -74,3 +76,16 @@ function signOut(){
     setBody(welcomeView);
   }
 }
+
+function loadHomeInfo(){
+    var returnCode = serverstub.getUserDataByToken(userToken);
+    var user = returnCode.data;
+
+    if(returnCode.success){
+      document.getElementById("nameLabel").innerHTML = "Name: " + user.firstname + " " + user.familyname;
+      document.getElementById("genderLabel").innerHTML = "Gender: " + user.gender;
+      document.getElementById("cityLabel").innerHTML = "City: " + user.city;
+      document.getElementById("countryLabel").innerHTML = "Country: " + user.country;
+      document.getElementById("emailLabel").innerHTML = "Email: " + user.email;
+    }
+  }

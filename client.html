@@ -7,7 +7,7 @@
 
   <!-- Welcome view -->
   <script id="welcomeView" type="text/view">
-  <body>
+
     <div>
       <div class="container-layout">
         <div class="container-img">
@@ -59,16 +59,34 @@
         </div>
       </div>
     </div>
-  </body>
+  
   </script>
 
   <!-- Profile view -->
   <script id="profileView" type="text/view">
     <div class="tabs">
-      <div class="tab">
+      <div class="tab" id="homeTab" value="Home">
         <input type="radio" id="home" name="tabGroup" checked>
         <label for="home">Home</label>
-        <div class="content"> home content
+        <div class="content">
+          <div class="homeArea">
+            <div class="accontInfo">
+              <h3> User info </h3>
+              <home-label id="nameLabel">Name: </home-label><br>
+              <home-label id="genderLabel">Gender: </home-label><br>
+              <home-label id="cityLabel">City: </home-label><br>
+              <home-label id="countryLabel">Country: </home-label><br>
+              <home-label id="emailLabel">Email:</home-label><br>
+
+              <h3> Post message </h3>
+            </div>
+            <div class="messages">
+              <h3> Posted messages </h3>
+              ljahwoidjnwandöoj
+              aowjndoåknaw
+              paownonaw
+            </div>
+          </div>
         </div>
       </div>
       <div class="tab" id="browseTab" value="Browse">

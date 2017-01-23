@@ -109,7 +109,7 @@ home-label{
 	color: black;
 }
 .messages{
-	margin-left: 30%;
+	margin-left: 10%;
 	float: left;
 }
 .accountInfo{
@@ -131,4 +131,10 @@ home-label{
 }
 .refresh-button:active{
 	background-color: black;
+}
+.p-messages{
+	overflow: scroll;
+	height: 300px;
+	width: 400px;
+
 }

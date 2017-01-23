@@ -77,15 +77,18 @@
               <home-label id="emailLabel">Email:</home-label><br>
 
               <h3> Post a message to your wall </h3>
-              <form-message id="postMessage" action="javascript:postMessage()">
+              <form id="postMessage" action="javascript:postMessage()">
                 <form-label> Tell the world what you are thinking about! </form-label><br>
-                <textarea class="postBox" type="text" id="message" required></textarea><br>
-                <input type=submit value="Post Message">
-              </form-message>
+                <textarea class="postBox" id="postBox" type="text" required></textarea><br>
+                <input type="submit" value="Post Message">
+                <div class="errorMessage" id="postMessageError">
+                </div>
+              </form>
             </div>
             <div class="messages">
               <h3> Posted messages <button class="refresh-button" id="refreshMessages"
-              onclick=""></button> </h3>
+              onclick="javascript:loadHomeMessages()"></button> </h3><br>
+              <p class="p-messages" id="messageWall"> </p>
             </div>
           </div>
         </div>

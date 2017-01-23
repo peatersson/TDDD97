@@ -93,27 +93,25 @@ function loadInfo(){
       document.getElementById("countryLabel").innerHTML = "Country: " + user.country;
       document.getElementById("emailLabel").innerHTML = "Email: " + user.email;
     }
-  }
 }
-/*
-function appendMessage(item, index){
-  var postedMessages = document.getElementById("messageWall");
-  postedMessages.innerHTML += item;
-}
+
 function loadHomeMessages(){
   var returnCode = serverstub.getUserMessagesByToken(userToken);
 
   if(returnCode.success){
     var messages = returnCode.data;
-    messages.forEach(appendMessage);
+    document.getElementById("messageWall").innerHTML = null;
+
+    for (i = 0; i < messages.length; i++) {
+      document.getElementById("messageWall").innerHTML += "<p>From: " + messages[i].writer + "<br>";
+      document.getElementById("messageWall").innerHTML += messages[i].content + "<br></p>";
+    }
   }
 }
 
-function postMessage(toEmail){
-  if(toEmail == null){
-    var returnCode = serverstub.postMessage(userToken, document.getElementById("postBox").innerHTML, userEmail);
-    if(returnCode.success){
-      alert("jawodnawnjd");
-    }
-  }
-}*/
+function postMessage(){
+  var errorArea = document.getElementById("postMessageError");
+  var returnCode = serverstub.postMessage(userToken, document.getElementById("postBox").value, userEmail);
+
+  errorArea.innerHTML = returnCode.message;
+}

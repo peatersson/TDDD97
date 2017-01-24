@@ -67,7 +67,6 @@
         <input type="radio" id="home" name="tabGroup" checked>
         <label for="home">Home</label>
         <div class="content">
-          <div class="homeArea">
             <div class="accountInfo">
               <h3> User info </h3>
               <home-label id="nameLabel">Name: </home-label><br>
@@ -90,14 +89,41 @@
               onclick="javascript:loadHomeMessages()"></button> </h3><br>
               <p class="p-messages" id="messageWall"> </p>
             </div>
-          </div>
         </div>
       </div>
       <div class="tab" id="browseTab" value="Browse">
         <input type="radio" id="browse" name="tabGroup">
         <label for="browse">Browse</label>
-        <div class="content"> browse content
-        </div>
+        <div class="content">
+            <div class="accountInfo">
+              <h3> Search user </h3>
+              <form action="javascript:searchUser()">
+                <input type="text" id="searchField" required>
+                <input type="submit" value="Search for user">
+                <div class="errorMessage" id="searchUserError">
+                </div>
+              </form>
+              <h3> User info </h3>
+              <home-label id="browseNameLabel">Name: </home-label><br>
+              <home-label id="browseGenderLabel">Gender: </home-label><br>
+              <home-label id="browseCityLabel">City: </home-label><br>
+              <home-label id="browseCountryLabel">Country: </home-label><br>
+              <home-label id="browseEmailLabel">Email:</home-label><br>
+
+              <h3 id="browseHeadingUser"> Post a message to </h3>
+              <form id="postMessageToUser" action="javascript:postMessageToUser()">
+                <textarea class="postBox" id="browsePostBox" type="text" required></textarea><br>
+                <input type="submit" value="Post Message">
+                <div class="errorMessage" id="browsePostMessageError">
+                </div>
+              </form>
+            </div>
+            <div class="messages">
+              <h3> Posted messages <button class="refresh-button" id="browseRefreshMessages"
+              onclick="javascript:loadBrowseMessages()"></button> </h3><br>
+              <p class="p-messages" id="browseMessageWall"> </p>
+            </div>
+          </div>
       </div>
       <div class="tab" id="accountTab" value="Account">
         <input type="radio" id="account" name="tabGroup">

@@ -55,7 +55,7 @@ form-label{
 }
 .tabs{
 	position: relative;
-	height: 80%;
+	height: 90%;
 }
 .tab{
 	color: solid black;
@@ -136,5 +136,10 @@ home-label{
 	overflow: scroll;
 	height: 200px;
 	width: 400px;
-
+}
+.heading2{
+	color: maroon;
+	font-size: 32;
+	padding: 0px;
+	text-align: center;
 }

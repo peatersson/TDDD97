@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <link href="{{ url_for('static', filename='client.css') }}" type="text/css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='client.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='serverstub.js') }}" type="text/javascript"></script>
+  </head>
+
+  <!-- Welcome view -->
+  <script id="welcomeView" type="text/view">
+    <div>
+      <div class="container-layout">
+        <div class="container-img">
+        </div>
+        <div class="container-login">
+          Login <br>
+          <form action="javascript:signIn();">
+            <div class="formArea">
+              <form-label> Email </form-label>
+              <input type="email" id="login_email" name="login_email" required><br>
+              <form-label> Password </form-label>
+              <input type="password" id="login_password" name = "login_password" required><br>
+              <input type="submit" value="Sign in">
+            </div>
+            <div class="errorMessage" id="signInError">
+            </div>
+          </form>
+
+        </div>
+        <div class="container-signup">
+          Sign up here <br>
+          <form id="signup_form" action="javascript:signup();">
+            <div class="formArea">
+              <form-label> First name </form-label>
+              <input type="text" id="firstname" required><br>
+              <form-label> Family name </form-label>
+              <input type="text" id="familyname" required><br>
+              <form-label> Gender </form-label>
+              <select id="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              </select><br>
+              <form-label> City </form-label>
+              <input type="text" id="city" required><br>
+              <form-label> Country </form-label>
+              <input type="text" id="country" required><br>
+              <form-label> Email </form-label>
+              <input type="email" id="email" required><br>
+              <form-label> Password </form-label>
+              <input type="password" id="password" required><br>
+              <form-label> Repeat psw </form-label>
+              <input type="password" name="repeat_pass" id="repeat_password" required><br>
+              <input type="submit" value="Sign up">
+            </div>
+          </form>
+          <div class="errorMessage" id="signUpError">
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <!-- Profile view -->
+  <script id="profileView" type="text/view">
+  <h2 class="heading2"> Twidder </h2>
+    <div class="tabs">
+      <div class="tab" id="homeTab" value="Home">
+        <input type="radio" id="home" name="tabGroup" checked>
+        <label for="home">Home</label>
+        <div class="content">
+            <div class="accountInfo">
+              <h3> User info </h3>
+              <home-label id="nameLabel">Name: </home-label><br>
+              <home-label id="genderLabel">Gender: </home-label><br>
+              <home-label id="cityLabel">City: </home-label><br>
+              <home-label id="countryLabel">Country: </home-label><br>
+              <home-label id="emailLabel">Email:</home-label><br>
+
+              <h3> Post a message to your wall </h3>
+              <form id="postMessage" action="javascript:postMessage()">
+                <form-label> Tell the world what you are thinking about! </form-label><br>
+                <textarea class="postBox" id="postBox" type="text" required></textarea><br>
+                <input type="submit" value="Post Message">
+                <div class="errorMessage" id="postMessageError">
+                </div>
+              </form>
+            </div>
+            <div class="messages">
+              <h3> Posted messages <button class="refresh-button" id="refreshMessages"
+              onclick="javascript:loadHomeMessages()"></button> </h3><br>
+              <p class="p-messages" id="messageWall"> </p>
+            </div>
+        </div>
+      </div>
+      <div class="tab" id="browseTab" value="Browse">
+        <input type="radio" id="browse" name="tabGroup">
+        <label for="browse">Browse</label>
+        <div class="content">
+            <div class="accountInfo">
+              <h3> Search user </h3>
+              <form action="javascript:searchUser()">
+                <input type="text" id="searchField" required>
+                <input type="submit" value="Search for user">
+                <div class="errorMessage" id="searchUserError">
+                </div>
+              </form>
+              <h3> User info </h3>
+              <home-label id="browseNameLabel">Name: </home-label><br>
+              <home-label id="browseGenderLabel">Gender: </home-label><br>
+              <home-label id="browseCityLabel">City: </home-label><br>
+              <home-label id="browseCountryLabel">Country: </home-label><br>
+              <home-label id="browseEmailLabel">Email:</home-label><br>
+
+              <h3 id="browseHeadingUser"> Post a message to </h3>
+              <form id="postMessageToUser" action="javascript:postMessageToUser()">
+                <textarea class="postBox" id="browsePostBox" type="text" required></textarea><br>
+                <input type="submit" value="Post Message">
+                <div class="errorMessage" id="browsePostMessageError">
+                </div>
+              </form>
+            </div>
+            <div class="messages">
+              <h3> Posted messages <button class="refresh-button" id="browseRefreshMessages"
+              onclick="javascript:loadBrowseMessages()"></button> </h3><br>
+              <p class="p-messages" id="browseMessageWall"> </p>
+            </div>
+          </div>
+      </div>
+      <div class="tab" id="accountTab" value="Account">
+        <input type="radio" id="account" name="tabGroup">
+        <label for="account">Account</label>
+        <div class="content">
+          <form id="changePass" action="javascript:changePassword()">
+            <div class="accountArea">
+              <h1 float="left"> Change Password </h1>
+              <form-label> Old password </form-label>
+              <input type="password" id="oldPass" name="oldPass" required><br>
+              <form-label> New password </form-label>
+              <input type="password" id="newPass" name = "newPass" required><br>
+              <form-label> Repeat new password </form-label>
+              <input type="password" id="repeatNewPass" name = "repeatNewPass" required><br>
+              <input type="submit" value="Change Password">
+              <div class="errorMessage" id="changePassError"></div>
+            </div>
+          </form>
+          <input type="button" id="signOutButton" onclick="signOut()" value="Sign out">
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <body id="body"> </body>
+</html>

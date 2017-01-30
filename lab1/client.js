@@ -56,7 +56,7 @@ function validatePassword(password, repeatedPassword, error){
       error.innerHTML = "Passwords don't match!"
       return false;
   }
-  if(password< MINIMAL_PASSWORD_LENGTH){
+  if(password.length < MINIMAL_PASSWORD_LENGTH){
       error.innerHTML = "Password too short"
       return false;
   }

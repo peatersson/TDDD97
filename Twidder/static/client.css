@@ -1,0 +1,145 @@
+body{
+	margin-top: 100px;
+	background-color: rgb(68, 117, 255);
+	color: #A4A4A4;
+	font-family: "Arial", Verdana, Sans-serif;
+}
+.container-layout{
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+.container-img {
+  float: left;
+  border: 2px solid black;
+  background-image: url('wimage.png');
+  width: 340px;
+  height: 400px;
+}
+.container-login {
+	color: black;
+	text-align: center;
+	border: 2px solid black;
+  margin-left: 350px;
+  width: 250px;
+  height: 100px;
+  background-color: #FFFFFF;
+}
+.container-signup {
+  text-align: center;
+	color: black;
+  border: 2px solid black;
+  margin-left: 350px;
+  margin-top: 10px;
+  width: 250px;
+  height: 286px;
+  background-color: #FFFFFF;
+}
+select{
+	float: right;
+	width: 50%;
+	margin-top: 2px;
+}
+form-label{
+	float: left;
+	margin-top: 4px;
+	font-size: 12px;
+}
+.formArea{
+  text-align: right;
+  margin-left: 5px;
+	margin-right: 5px;
+}
+.errorMessage{
+	color: red;
+}
+.tabs{
+	position: relative;
+	height: 90%;
+}
+.tab{
+	color: solid black;
+	float: left;
+}
+.tab [type=radio]{
+	display: none;
+}
+.tab label{
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #000;
+	position: relative;
+	border-radius: 10px;
+}
+.content{
+	border: 1px solid black;
+	background: white;
+	position: absolute;
+	padding: 20px;
+	margin-top: 10px;
+	left: 0;
+	right: 0;
+	top: 20px;
+	bottom: 0;
+	border-radius: 5px;
+}
+[type=radio]:checked ~ .content{
+	z-index: 1;
+}
+[type=radio]:checked ~ label{
+	color: black;
+}
+.accountArea{
+	text-align: right;
+	float: left;
+}
+[type=button]{
+	background-color: black;
+	color: white;
+	float: right;
+	margin-top: 30px;
+	width: 15%;
+	height: 15%;
+	font-size: 30px;
+}
+.homeArea{
+}
+home-label{
+	font-size: 16px;
+	color: black;
+}
+.messages{
+	margin-left: 10%;
+	float: left;
+}
+.accountInfo{
+	float: left;
+}
+.postBox{
+	width: 300px;
+	height: 100px;
+}
+.refresh-button{
+	float: right;
+	margin-left: 40px;
+	margin-top: 0px;
+	width: 48px;
+	height: 48px;
+	background-image: url('ic_refresh_white_24dp_2x.png');
+	background-color: grey;
+	border: 1px;
+}
+.refresh-button:active{
+	background-color: black;
+}
+.p-messages{
+	overflow: scroll;
+	height: 200px;
+	width: 400px;
+}
+.heading2{
+	color: maroon;
+	font-size: 32;
+	padding: 0px;
+	text-align: center;
+}

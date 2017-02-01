@@ -6,7 +6,7 @@ CREATE TABLE if NOT EXISTS loggedInUsers(
 
 CREATE TABLE if NOT EXISTS users(
     email VARCHAR(50),
-    passwordHash VARCHAR(50),
+    password VARCHAR(50),
     firstName VARCHAR(50),
     familyName VARCHAR(50),
     gender VARCHAR(50),

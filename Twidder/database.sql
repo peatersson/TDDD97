@@ -16,9 +16,7 @@ CREATE TABLE if NOT EXISTS users(
 );
 
 CREATE TABLE if NOT EXISTS messages(
-    idMessage VARCHAR(50),
     fromUser VARCHAR(50),
     toUser VARCHAR(50),
-    content VARCHAR(255),
-    PRIMARY KEY (idMessage)
+    content VARCHAR(255)
 )

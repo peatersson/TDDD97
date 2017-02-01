@@ -25,8 +25,8 @@ def find_user_by_email(email):
     cur = db.cursor()
     try:
         cur.execute('''SELECT * FROM users WHERE email=?''', [email], )
-        result = cur.fetchall()
-        return result
+        result = cur.fetchone()
+        return [result[0], result[1], result[2], result[3], result[4], result[5], result[6]]
     except:
         return False
 
@@ -35,13 +35,12 @@ def find_user_by_token(token):
     db = get_db()
     cur = db.cursor()
     try:
-        user = get_user_by_token(token)
+        user = get_logged_in_user_by_token(token)
         cur.execute('''SELECT * FROM users WHERE email=?''', [user[0]], )
-        result = cur.fetchall()
-        return result
+        result = cur.fetchone()
+        return [result[0], result[1], result[2], result[3], result[4], result[5], result[6]]
     except:
         return False
-
 
 
 def add_user(email, password, firstname, familyname, gender, city, country):
@@ -66,12 +65,12 @@ def add_logged_in_user(email, token):
         return False
 
 
-def get_user_by_token(token):
+def get_logged_in_user_by_token(token):
     db = get_db()
     cur = db.cursor()
     try:
         cur.execute('''SELECT * FROM loggedInUsers WHERE token=?''', [token], )
-        result = cur.fetchall()
+        result = cur.fetchone()
         return result
     except:
         return False
@@ -80,11 +79,44 @@ def get_user_by_token(token):
 def remove_logged_in_user(token):
     db = get_db()
     try:
-        c.execute('''DELETE FROM loggedInUsers WHERE token=?''', [token], )
-        c.commit()
+        db.execute('''DELETE FROM loggedInUsers WHERE token=?''', [token], )
+        db.commit()
+        return True
     except:
         return False
 
+
+def add_message(sender_email, receiver, message):
+    db = get_db()
+    message_info = [sender_email, receiver, message]
+    try:
+        db.execute('''INSERT INTO messages VALUES (?,?,?)''', message_info, )
+        db.commit()
+        return True
+    except:
+        return False
+
+
+def get_message_by_email(email):
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.execute('''SELECT * FROM messages WHERE toUser=?''', [email], )
+        result = cur.fetchall()
+        return result
+    except:
+        return False
+
+
+def update_password(email, newPass):
+    db = get_db()
+    info = [newPass, email]
+    try:
+        db.execute('''UPDATE users SET password =? WHERE email =?''', info, )
+        db.commit()
+        return True
+    except:
+        return False
 
 
 

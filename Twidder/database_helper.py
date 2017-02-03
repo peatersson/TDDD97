@@ -20,7 +20,7 @@ def connect_to_database():
     return sqlite3.connect('database.db')
 
 
-def find_user_by_email(email):
+def get_user_by_email(email):
     db = get_db()
     cur = db.cursor()
     try:
@@ -31,7 +31,7 @@ def find_user_by_email(email):
         return False
 
 
-def find_user_by_token(token):
+def get_user_by_token(token):
     db = get_db()
     cur = db.cursor()
     try:

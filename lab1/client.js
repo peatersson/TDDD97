@@ -24,6 +24,7 @@ function signIn(){
     loadProfileView();
   }
   errorArea.innerHTML = returnCode.message;
+  alert('tetst');
 }
 
 function loadProfileView(){

@@ -1,13 +1,15 @@
-from flask import Flask, render_template, request, app
+from flask import Flask, request, app, render_template
 import database_helper
 import json
 
-app = Flask(__name__)
+
+app = Flask('Twidder')
+app = Flask(__name__, static_url_path='')
 
 
-@app.route('/')
-def index():
-    return render_template('client.html')
+@app.route('/', methods=['GET', 'POST'])
+def welcome_view():
+    return app.send_static_file('client.html')
 
 
 @app.cli.command('initdb')
@@ -22,7 +24,7 @@ def sign_in():
         email = request.form['email']
         password = request.form['password']
 
-        result = database_helper.find_user_by_email(email)
+        result = database_helper.get_user_by_email(email)
         if not (result and password == result[1]):
             return_code = create_return_code(False, 'Wrong username or password')
         else:
@@ -117,7 +119,7 @@ def change_password():
 
 
 def check_password(token, password):
-    result = database_helper.find_user_by_token(token)
+    result = database_helper.get_user_by_token(token)
 
     if result:
         return password == result[1]
@@ -125,14 +127,14 @@ def check_password(token, password):
         return False
 
 
-@app.route('/getToken', methods=['POST'])
+@app.route('/getUserDataByToken', methods=['POST'])
 def get_user_data_by_token():
     token = request.form['token']
-    result = database_helper.find_user_by_token(token)
+    result = database_helper.get_user_by_token(token)
 
     if result:
-        found_user = {'email': result[0], 'firstname': result[1], 'familyname': result[2], 'gender': result[3],
-                      'city': result[4], 'country': result[5]}
+        found_user = {'email': result[0], 'firstname': result[2], 'familyname': result[3], 'gender': result[4],
+                      'city': result[5], 'country': result[6]}
         return_code = create_return_code(True, 'User found', found_user)
     else:
         return_code = create_return_code(False, 'User not found')
@@ -145,7 +147,7 @@ def get_user_data_by_email():
     email = request.form['email']
 
     if token_check(token):
-        result = database_helper.find_user_by_email(email)
+        result = database_helper.get_user_by_email(email)
         if result:
             found_user = {'email': result[0], 'firstname': result[1], 'familyname': result[2], 'gender': result[3],
                           'city': result[4], 'country': result[5]}
@@ -168,7 +170,7 @@ def create_return_code(boolean, message="", data="-"):
     return {'success': boolean, 'message': message, 'data': data}
 
 
-@app.route('/getMessage', methods=['POST'])
+@app.route('/getUserMessagesByToken', methods=['POST'])
 def get_user_messages_by_token():
     token = request.form['token']
     user = token_check(token)
@@ -215,7 +217,7 @@ def get_user_messages_by_email():
     return json.dumps(return_code)
 
 
-@app.route('/post', methods=['POST'])
+@app.route('/postMessage', methods=['POST'])
 def post_message():
     token = request.form['token']
     receiver = request.form['email']
@@ -243,4 +245,4 @@ def token_check(token):
 
 
 def email_check(email):
-    return database_helper.find_user_by_email(email)
+    return database_helper.get_user_by_email(email)

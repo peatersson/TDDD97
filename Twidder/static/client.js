@@ -30,6 +30,7 @@ function signIn(){
 				userEmail = email;
 				setBody(profileView);
 				loadProfileView();
+				connectSocket();
 			}else{
 				errorArea.innerHTML = returnCode.message;
 			}
@@ -177,36 +178,56 @@ function postMessage(toEmail){
 var searchedUser = null;
 function searchUser(){
   email = document.getElementById("searchField").value;
-  var returnCode = serverstub.getUserDataByEmail(userToken, email);
-  var errorArea = document.getElementById("searchUserError");
 
-  if(returnCode.success){
-    searchedUser = email;
-    var user = returnCode.data;
-    document.getElementById("browseNameLabel").innerHTML = "Name: " + user.firstname + " " + user.familyname;
-    document.getElementById("browseGenderLabel").innerHTML = "Gender: " + user.gender;
-    document.getElementById("browseCityLabel").innerHTML = "City: " + user.city;
-    document.getElementById("browseCountryLabel").innerHTML = "Country: " + user.country;
-    document.getElementById("browseEmailLabel").innerHTML = "Email: " + user.email;
-    document.getElementById("browseHeadingUser").innerHTML += user.firstname;
-    loadBrowseMessages();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+        if (xhttp.readyState==4 && xhttp.status==200){
+	        var returnCode = JSON.parse(xhttp.responseText);
+	        if(returnCode.success){
+                searchedUser = email;
+                var user = returnCode.data;
+                document.getElementById("browseNameLabel").innerHTML = "Name: " + user.firstname + " " + user.familyname;
+                document.getElementById("browseGenderLabel").innerHTML = "Gender: " + user.gender;
+                document.getElementById("browseCityLabel").innerHTML = "City: " + user.city;
+                document.getElementById("browseCountryLabel").innerHTML = "Country: " + user.country;
+                document.getElementById("browseEmailLabel").innerHTML = "Email: " + user.email;
+                document.getElementById("browseHeadingUser").innerHTML += user.firstname;
+                loadBrowseMessages();
+            }
+            document.getElementById("searchUserError").innerHTML = returnCode.message;
+        }
   }
-  errorArea.innerHTML = returnCode.message;
+  data = "&token="+userToken+"&email="+email;
+  postRequest(xhttp,"/getUserDataByEmail", data);
 }
 
 function loadBrowseMessages(){
-  var returnCode = serverstub.getUserMessagesByEmail(userToken, searchedUser);
-
-  if(returnCode.success){
-    var messages = returnCode.data;
-    document.getElementById("browseMessageWall").innerHTML = null;
-    for (i = 0; i < messages.length; i++) {
-      document.getElementById("browseMessageWall").innerHTML += "<p>From: " + messages[i].writer + "<br>";
-      document.getElementById("browseMessageWall").innerHTML += messages[i].content + "<br></p>";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange=function(){
+        if (xhttp.readyState==4 && xhttp.status==200){
+	        var returnCode = JSON.parse(xhttp.responseText);
+	        if(returnCode.success){
+                var messages = returnCode.data;
+                document.getElementById("browseMessageWall").innerHTML = null;
+                for (i = 0; i < messages.length; i++) {
+                    document.getElementById("browseMessageWall").innerHTML += "<p>From: " + messages[i].writer + "<br>";
+                    document.getElementById("browseMessageWall").innerHTML += messages[i].content + "<br></p>";
+                }
+            }
+        }
     }
-  }
+    data = "&token="+userToken+"&email="+searchedUser;
+    postRequest(xhttp,"/getMessageByEmail", data);
 }
 
 function postMessageToUser(){
   postMessage(searchedUser);
+}
+
+function connectSocket(){
+    ws = new WebSocket("ws://" + document.domain + ":5000/api");
+
+    ws.onopen = function() {
+		ws.send("Here's some text that the server is urgently awaiting!");
+	};
 }

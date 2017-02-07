@@ -1,9 +1,10 @@
 from flask import Flask, request, app, render_template
 import database_helper
 import json
+from geventwebsocket.handler import WebSocketHandler
+from gevent.pywsgi import WSGIServer
 
 
-app = Flask('Twidder')
 app = Flask(__name__, static_url_path='')
 
 
@@ -141,7 +142,7 @@ def get_user_data_by_token():
     return json.dumps(return_code)
 
 
-@app.route('/getEmail', methods=['POST'])
+@app.route('/getUserDataByEmail', methods=['POST'])
 def get_user_data_by_email():
     token = request.form['token']
     email = request.form['email']
@@ -149,8 +150,8 @@ def get_user_data_by_email():
     if token_check(token):
         result = database_helper.get_user_by_email(email)
         if result:
-            found_user = {'email': result[0], 'firstname': result[1], 'familyname': result[2], 'gender': result[3],
-                          'city': result[4], 'country': result[5]}
+            found_user = {'email': result[0], 'firstname': result[2], 'familyname': result[3], 'gender': result[4],
+                          'city': result[5], 'country': result[6]}
             return_code = create_return_code(True, 'Userdata found', found_user)
         else:
             return_code = create_return_code(False, 'User not found')
@@ -195,7 +196,7 @@ def parse_messages(messages):
     return data
 
 
-@app.route('/getMessageMail', methods=['POST'])
+@app.route('/getMessageByEmail', methods=['POST'])
 def get_user_messages_by_email():
     token = request.form['token']
     email = request.form['email']
@@ -246,3 +247,22 @@ def token_check(token):
 
 def email_check(email):
     return database_helper.get_user_by_email(email)
+
+
+@app.route('/api')
+def api():
+    if request.environ.get('wsgi.websocket'):
+        ws = request.environ['wsgi.websocket']
+
+
+
+        while True:
+            message = ws.wait()
+            ws.send(message)
+    return ''
+
+
+if __name__ == '__main__':
+    app.debug = True
+    http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
+    http_server.serve_forever()

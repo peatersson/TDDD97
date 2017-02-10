@@ -143,3 +143,17 @@ home-label{
 	padding: 0px;
 	text-align: center;
 }
+.drag{
+    draggable: True;
+    ondragstart: "drag(event)";
+}
+.delete-button{
+    float: right;
+	margin-left: 40px;
+	margin-top: 0px;
+	width: 48px;
+	height: 48px;
+	background-image: url('ic_delete_white_24dp_2x.png');
+	background-color: grey;
+	border: 1px;
+}

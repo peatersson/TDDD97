@@ -88,8 +88,13 @@
             </div>
             <div class="messages">
               <h3> Posted messages <button class="refresh-button" id="refreshMessages"
-              onclick="javascript:loadHomeMessages()"></button> </h3><br>
-              <p class="p-messages" id="messageWall"> </p>
+              onclick="javascript:loadHomeMessages()"></button>
+               <button class="delete-button" ondrop="deleteMessage(event)" ondragover="allowDrop(event)" id="deleteMessages"></button></h3><br>
+              <div class="p-messages" id="messageWall" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="drag" id="homeMessage">
+                <p> test </p>
+                </div>
+              </div>
             </div>
         </div>
       </div>

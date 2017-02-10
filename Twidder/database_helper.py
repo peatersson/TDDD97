@@ -26,7 +26,7 @@ def get_user_by_email(email):
     try:
         cur.execute('''SELECT * FROM users WHERE email=?''', [email], )
         result = cur.fetchone()
-        return [result[0], result[1], result[2], result[3], result[4], result[5], result[6]]
+        return [result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7]]
     except:
         return False
 
@@ -38,16 +38,16 @@ def get_user_by_token(token):
         user = get_logged_in_user_by_token(token)
         cur.execute('''SELECT * FROM users WHERE email=?''', [user[0]], )
         result = cur.fetchone()
-        return [result[0], result[1], result[2], result[3], result[4], result[5], result[6]]
+        return [result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7]]
     except:
         return False
 
 
-def add_user(email, password, firstname, familyname, gender, city, country):
-    user = [email, password, firstname, familyname, gender, city, country]
+def add_user(email, password, firstname, familyname, gender, city, country, salt):
+    user = [email, password, firstname, familyname, gender, city, country, salt]
     db = get_db()
     try:
-        db.execute('''INSERT INTO users VALUES (?,?,?,?,?,?,?)''', user, )
+        db.execute('''INSERT INTO users VALUES (?,?,?,?,?,?,?,?)''', user, )
         db.commit()
         return True
     except:
@@ -70,6 +70,18 @@ def get_logged_in_user_by_token(token):
     cur = db.cursor()
     try:
         cur.execute('''SELECT * FROM loggedInUsers WHERE token=?''', [token], )
+        result = cur.fetchone()
+        return result
+    except:
+        print("cant fetch user")
+        return False
+
+
+def get_logged_in_user_by_email(email):
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.execute('''SELECT * FROM loggedInUsers WHERE email=?''', [email], )
         result = cur.fetchone()
         return result
     except:

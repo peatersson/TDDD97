@@ -12,6 +12,7 @@ CREATE TABLE if NOT EXISTS users(
     gender VARCHAR(50),
     city VARCHAR(50),
     country VARCHAR(50),
+    salt VARCHAR(50),
     PRIMARY KEY (email)
 );
 

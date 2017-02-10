@@ -10,13 +10,22 @@ window.onload = function(){
 
 var MINIMAL_PASSWORD_LENGTH = 6; //no magical numbers
 
+var userEmail = null;
+var userToken = null;
+
 function postRequest(request, url, data){
     request.open("POST", url, true);
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	request.send(data);
 }
 
+function createHash(params){
+    hash =  CryptoJS.SHA512(params+userToken);
+    return hash.toString();
+}
+
 function signIn(){
+  createHash("test");
   email = document.getElementById("login_email").value;
   password = document.getElementById("login_password").value;
   var errorArea = document.getElementById("signInError");
@@ -36,7 +45,9 @@ function signIn(){
 			}
 	    }
 	}
-  postRequest(xhttp,"/signIn", "email=" + email + "&password=" + password );
+	params = "&email=" + email + "&password=" + password + "&hash";
+	hash_params = createHash(params);
+    postRequest(xhttp,"/signIn", params + hash_params);
 }
 
 function loadProfileView(){
@@ -65,7 +76,7 @@ function signup(){
 			errorArea.innerHTML = returnCode.message;
 	   }
   }
-    data = "email="+email+"&password="+password+"&firstname="+firstname+"&familyname="+familyname+"&gender="+gender+"&city="+city+"&country="+country;
+    data = "&email="+email+"&password="+password+"&firstname="+firstname+"&familyname="+familyname+"&gender="+gender+"&city="+city+"&country="+country;
     postRequest(xhttp,"/signUp", data);
 }
 
@@ -82,23 +93,23 @@ function validatePassword(password, repeatedPassword, error){
 }
 
 function changePassword(){
-  var oldPass = document.getElementById("oldPass").value;
-  var newPass = document.getElementById("newPass").value;
-  var repeatNewPass = document.getElementById("repeatNewPass").value;
-  var errorArea = document.getElementById("changePassError");
+    var oldPass = document.getElementById("oldPass").value;
+    var newPass = document.getElementById("newPass").value;
+    var repeatNewPass = document.getElementById("repeatNewPass").value;
+    var errorArea = document.getElementById("changePassError");
 
-  if(validatePassword(newPass, repeatNewPass, errorArea)){
+    if(validatePassword(newPass, repeatNewPass, errorArea)){
     var xhttp = new XMLHttpRequest();
      xhttp.onreadystatechange=function(){
-	  if (xhttp.readyState==4 && xhttp.status==200){
-		    var returnCode = JSON.parse(xhttp.responseText);
-			errorArea.innerHTML = returnCode.message;
-	   }
+      if (xhttp.readyState==4 && xhttp.status==200){
+            var returnCode = JSON.parse(xhttp.responseText);
+            errorArea.innerHTML = returnCode.message;
+       }
+    }
+    data = "&email="+userEmail+"&old="+oldPass+"&new="+newPass+"&hash=";
+    hash_params = createHash(data);
+    postRequest(xhttp,"/changePass", data + hash_params);
   }
-    data = "&old="+oldPass+"&new="+newPass+"&token="+userToken;
-    postRequest(xhttp,"/changePass", data);
-  }
-
 }
 
 function signOut(){
@@ -111,7 +122,9 @@ function signOut(){
             errorArea.innerHTML = returnCode.message;
        }
     }
-    postRequest(xhttp,"/signOut", "token="+userToken);
+    params = "&email="+userEmail+"&hash=";
+    hash_params = createHash(params);
+    postRequest(xhttp,"/signOut", params + hash_params);
 }
 
 function loadInfo(){
@@ -129,7 +142,9 @@ function loadInfo(){
             }
       }
     }
-    postRequest(xhttp,"/getUserDataByToken", "token="+userToken);
+    params = "&email="+userEmail+"&hash=";
+    hashed_params = createHash(params);
+    postRequest(xhttp,"/getUserDataByToken", params + hashed_params);
 }
 
 function loadHomeMessages(){
@@ -139,7 +154,7 @@ function loadHomeMessages(){
 	        var returnCode = JSON.parse(xhttp.responseText);
 	        if(returnCode.success){
                 var messages = returnCode.data;
-                document.getElementById("messageWall").innerHTML = null;
+                document.getElementById("messageWall").innerHTML = null
 
                 for (i = 0; i < messages.length; i++) {
                     document.getElementById("messageWall").innerHTML += "<p>From: " + messages[i].writer + "<br>";
@@ -148,8 +163,9 @@ function loadHomeMessages(){
             }
         }
     }
-    data = "&token="+userToken;
-    postRequest(xhttp,"/getUserMessagesByToken", data);
+    data = "&email="+userEmail+"&hash=";
+    hashed_params = createHash(data);
+    postRequest(xhttp,"/getUserMessagesByToken", data+hashed_params);
 }
 
 function postMessage(toEmail){
@@ -170,8 +186,9 @@ function postMessage(toEmail){
 	        errorArea.innerHTML = returnCode.message;
         }
   }
-  data = "&token="+userToken+"&email="+toEmail+"&message="+input;
-  postRequest(xhttp,"/postMessage", data);
+  data = "&email="+userEmail+"&toEmail="+toEmail+"&message="+input+"&hash=";
+  hashed_params = createHash(data);
+  postRequest(xhttp,"/postMessage", data + hashed_params);
   toEmail = null;
 }
 
@@ -191,14 +208,15 @@ function searchUser(){
                 document.getElementById("browseCityLabel").innerHTML = "City: " + user.city;
                 document.getElementById("browseCountryLabel").innerHTML = "Country: " + user.country;
                 document.getElementById("browseEmailLabel").innerHTML = "Email: " + user.email;
-                document.getElementById("browseHeadingUser").innerHTML += user.firstname;
+                document.getElementById("browseHeadingUser").innerHTML = "Post a message to " + user.firstname;
                 loadBrowseMessages();
             }
             document.getElementById("searchUserError").innerHTML = returnCode.message;
         }
   }
-  data = "&token="+userToken+"&email="+email;
-  postRequest(xhttp,"/getUserDataByEmail", data);
+  data = "&email="+userEmail+"&searched="+email+"&hash=";
+  hashed_params = createHash(data);
+  postRequest(xhttp,"/getUserDataByEmail", data + hashed_params);
 }
 
 function loadBrowseMessages(){
@@ -216,18 +234,67 @@ function loadBrowseMessages(){
             }
         }
     }
-    data = "&token="+userToken+"&email="+searchedUser;
-    postRequest(xhttp,"/getMessageByEmail", data);
+    data = "&email="+userEmail+"&searched="+searchedUser+"&hash=";
+    hashed_params = createHash(data);
+    postRequest(xhttp,"/getMessageByEmail", data + hashed_params);
 }
 
 function postMessageToUser(){
   postMessage(searchedUser);
 }
 
+
 function connectSocket(){
-    ws = new WebSocket("ws://" + document.domain + ":5000/api");
+    url = "ws://" + document.domain + ":5000/socket";
+    ws = new WebSocket(url);
 
     ws.onopen = function() {
-		ws.send("Here's some text that the server is urgently awaiting!");
+        user = {"email":userEmail, "hash": createHash(email)};
+		ws.send(JSON.stringify(user));
+		console.log(JSON.stringify(user));
+	};
+	ws.onmessage = function(msg) {
+		serverMsg = JSON.parse(msg.data);
+		if (serverMsg.success){
+		    // should never happend
+		}else{
+		    if (serverMsg.data.statusCode == 1){
+		        userToken = null;
+		        userEmail = null;
+		        setBody(welcomeView);
+		        document.getElementById("signInError").innerHTML = serverMsg.message;
+		    }
+		}
+	};
+	ws.onclose = function() {
+		console.log("WebSocket closed");
+	};
+	ws.onerror = function() {
+		console.log("ERROR!");
 	};
 }
+
+/*
+WHAT THE HELL?! YOU CANNOT RECEIVE WHAT HAS'NT BEEN SENT?!
+*/
+
+/*
+This things consist of many things.
+
+.
+.
+.
+.
+.
+.
+
+Ya?
+*/
+
+/*
+Nota-belle?
+*/
+
+/*
+Registered as sent, BUT NOOOOOOOOOOOT AS RECEIVED?!?!?!
+*/

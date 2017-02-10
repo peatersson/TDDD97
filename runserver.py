@@ -1,5 +1,7 @@
 from gevent.wsgi import WSGIServer
+from geventwebsocket.handler import WebSocketHandler
 from Twidder import app
 
-http_server = WSGIServer(('', 4000), app)
-http_server.serve_forever()
+if __name__ == '__main__':
+    http_server = WSGIServer(('', 5000), app, WebSocketHandler)
+    http_server.serve_forever()

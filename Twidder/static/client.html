@@ -89,11 +89,13 @@
             <div class="messages">
               <h3> Posted messages <button class="refresh-button" id="refreshMessages"
               onclick="javascript:loadHomeMessages()"></button>
-               <button class="delete-button" ondrop="deleteMessage(event)" ondragover="allowDrop(event)" id="deleteMessages"></button></h3><br>
-              <div class="p-messages" id="messageWall" ondrop="drop(event)" ondragover="allowDrop(event)">
+               <button class="delete-button" title="Drag and drop a message here to delete it" ondrop="deleteMessage(event)" ondragover="allowDrop(event)" id="deleteMessages"></button></h3><br>
+              <div class="p-messages" id="messageWall" ondrop="drop(event)">
                 <div class="drag" id="homeMessage">
-                <p> test </p>
+                <p> </p>
                 </div>
+              </div>
+              <div class="errorMessage" id="deleteMessageError">
               </div>
             </div>
         </div>

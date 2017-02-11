@@ -252,7 +252,7 @@ def get_user_messages_by_token():
 def parse_messages(messages):
     data = []
     for m in messages:
-        data.append({'writer': m[0], 'content': m[2]})
+        data.append({'id': m[0], 'writer': m[1], 'content': m[3]})
     return data
 
 
@@ -296,7 +296,8 @@ def post_message():
         token = user[1]
         if check_hash(hash, params, token):
             if email_check(receiver):
-                result = database_helper.add_message(sender, receiver, message)
+                unique_id = generate_token()
+                result = database_helper.add_message(unique_id, sender, receiver, message)
 
                 if result:
                     return_code = create_return_code(True, 'Message posted')
@@ -352,6 +353,30 @@ def socket_connection():
                     del current_sockets[key]
                     break
     return ''
+
+
+@app.route('/deleteMessage', methods=['POST'])
+def delete_message():
+    message_id = request.form['id']
+    hash = request.form['hash']
+    email = request.form['email']
+    user = database_helper.get_logged_in_user_by_email(email)
+
+    if user:
+        token = user[1]
+        params = "&email="+email+"&id="+message_id+"&hash="
+
+        if check_hash(hash, params, token):
+            result = database_helper.delete_message(message_id)
+            if result:
+                return_code = create_return_code(True, "Message deleted")
+            else:
+                return_code = create_return_code(False, "Message could not be deleted")
+        else:
+            return_code = create_return_code(False, "Bad token")
+    else:
+        return_code = create_return_code(False, "You are not logged in")
+    return json.dumps(return_code)
 
 
 if __name__ == '__main__':

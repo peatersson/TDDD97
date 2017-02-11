@@ -154,11 +154,14 @@ function loadHomeMessages(){
 	        var returnCode = JSON.parse(xhttp.responseText);
 	        if(returnCode.success){
                 var messages = returnCode.data;
-                document.getElementById("messageWall").innerHTML = null;
+                document.getElementById("messageWall").innerHTML = "";
                 for (i = 0; i < messages.length; i++) {
                     document.getElementById("messageWall").innerHTML +=
-                    "<p id=\"drag"+i+"\" draggable=\"true\" ondragstart=\"drag(event)\">" + messages[i].writer + "<br>" + messages[i].content + "</p> <br>";
+                    "<p id=\""+messages[i].id+"\" draggable=\"true\" ondragstart=\"drag(event)\">" + messages[i].writer + "<br>" + messages[i].content + "</p> <br>";
                 }
+            }
+            else{
+                document.getElementById("messageWall").innerHTML = "";
             }
         }
     }
@@ -226,11 +229,9 @@ function loadBrowseMessages(){
 	        if(returnCode.success){
                 var messages = returnCode.data;
                 document.getElementById("browseMessageWall").innerHTML = null;
-                document.getElementById("message") = null;
                 for (i = 0; i < messages.length; i++) {
-                    document.getElementById("message").innerHTML += "<p>From: " + messages[i].writer + "<br>";
-                    document.getElementById("message").innerHTML += messages[i].content + "<br></p>";
-                    document.getElementById("browseMessageWall").innerHTML += document.getElementById("message").innerHTML;
+                    document.getElementById("browseMessageWall").innerHTML += "<p>From: " + messages[i].writer + "<br>";
+                    document.getElementById("browseMessageWall").innerHTML += messages[i].content + "<br></p>";
                 }
             }
         }
@@ -275,11 +276,11 @@ function connectSocket(){
 	};
 }
 
+message_to_be_deleted = null;
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
-message_to_be_deleted = null;
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
@@ -294,30 +295,17 @@ function drop(ev) {
 function deleteMessage(ev, target){
     message_to_be_deleted = ev.dataTransfer.getData("text");
 
-    // byt så att messages har elementId som sitt inre id
-    // skicka remove_message till servern
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange=function(){
+        if (xhttp.readyState==4 && xhttp.status==200){
+	        var returnCode = JSON.parse(xhttp.responseText);
+	        if(returnCode.success){
+                loadHomeMessages();
+            }
+            document.getElementById("deleteMessageError").innerHTML = returnCode.message;
+        }
+    }
+    data = "&email="+userEmail+"&id="+message_to_be_deleted+"&hash=";
+    hashed_params = createHash(data);
+    postRequest(xhttp,"/deleteMessage", data + hashed_params);
 }
-/*
-WHAT THE HELL?! YOU CANNOT RECEIVE WHAT HAS'NT BEEN SENT?!
-*/
-
-/*
-This things consist of many things.
-
-.
-.
-.
-.
-.
-.
-
-Ya?
-*/
-
-/*
-Nota-belle?
-*/
-
-/*
-Registered as sent, BUT NOOOOOOOOOOOT AS RECEIVED?!?!?!
-*/

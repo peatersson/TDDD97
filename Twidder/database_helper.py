@@ -98,11 +98,11 @@ def remove_logged_in_user(token):
         return False
 
 
-def add_message(sender_email, receiver, message):
+def add_message(unique_id, sender_email, receiver, message):
     db = get_db()
-    message_info = [sender_email, receiver, message]
+    message_info = [unique_id, sender_email, receiver, message]
     try:
-        db.execute('''INSERT INTO messages VALUES (?,?,?)''', message_info, )
+        db.execute('''INSERT INTO messages VALUES (?,?,?,?)''', message_info, )
         db.commit()
         return True
     except:
@@ -125,6 +125,16 @@ def update_password(email, newPass):
     info = [newPass, email]
     try:
         db.execute('''UPDATE users SET password =? WHERE email =?''', info, )
+        db.commit()
+        return True
+    except:
+        return False
+
+
+def delete_message(message_id):
+    db = get_db()
+    try:
+        db.execute('''DELETE FROM messages WHERE id = ?''', [message_id], )
         db.commit()
         return True
     except:

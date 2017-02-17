@@ -58,7 +58,7 @@ form-label{
 	height: 90%;
 }
 .tab{
-	color: solid black;
+	color: black;
 	float: left;
 }
 .tab [type=radio]{
@@ -139,13 +139,9 @@ home-label{
 }
 .heading2{
 	color: maroon;
-	font-size: 32;
+	font-size: 32px;
 	padding: 0px;
 	text-align: center;
-}
-.drag{
-    draggable: True;
-    ondragstart: "drag(event)";
 }
 .delete-button{
     float: right;

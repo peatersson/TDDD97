@@ -1,3 +1,3 @@
 # TDDD97
 
-kurs i webprogrammering
+course in web programming
